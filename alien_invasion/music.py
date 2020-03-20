@@ -5,6 +5,7 @@ class MusicPlay():
         self.volume=0.2
         self.shoot_music='music/shoot.mp3'
         self.background_music='music/background.mp3'
+        self.boom_music='music/boom.mp3'
     def shoot_music_play(self):
         pygame.mixer.music.load(self.shoot_music)
         pygame.mixer.music.set_volume(self.volume)
@@ -12,4 +13,8 @@ class MusicPlay():
     def background_music_play(self):
         pygame.mixer.music.load(self.background_music)
         pygame.mixer.music.set_volume(self.volume)
-        pygame.mixer_music.play()
+        pygame.mixer.music.play()
+    def boom_music_play(self):
+        pygame.mixer.music.load(self.boom_music)
+        pygame.mixer.music.set_volume(self.volume)
+        pygame.mixer.music.play()

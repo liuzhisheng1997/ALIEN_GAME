@@ -38,7 +38,7 @@ def run_game():
 			if status.game_active:
 				music_game.background_music_play()
 				ship.update()
-				gf.update_bullets(bullets,aliens,ai_settings,screen,ship,status,sb)
+				gf.update_bullets(bullets,aliens,ai_settings,screen,ship,status,sb,music_game)
 				gf.update_alien(aliens,ai_settings,ship,status,bullets,screen,sb)
 				#每次循环时都重绘屏幕
 			gf.update_screen(ai_settings,screen,ship,bullets,aliens,play_button,status,sb)

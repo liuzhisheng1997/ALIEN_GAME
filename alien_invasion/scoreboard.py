@@ -34,7 +34,7 @@ class Scoreboard():
         self.level_image=self.font.render(level_str,True,self.text_color,self.ai_settings.bg_color)
         self.level_rect=self.level_image.get_rect()
         self.level_rect.right=self.score_rect.right
-        self.level_rect.top=self.score_rect.top+40
+        self.level_rect.top=self.score_rect.top+50
     def prep_ships(self):
         self.ships=Group()
         for ship_number in range(self.status.ships_left):

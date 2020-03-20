@@ -60,17 +60,18 @@ def update_screen(ai_settings, screen, ship,bullets,aliens,play_button,status,sb
         play_button.draw_button()
     # 让最近绘制的屏幕可见
     pygame.display.flip()
-def update_bullets(bullets,aliens,ai_settings,screen,ship,status,sb):
+def update_bullets(bullets,aliens,ai_settings,screen,ship,status,sb,music_game):
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom<=0:
             bullets.remove(bullet)
-    check_bullets_alien_collisions(bullets,aliens,ai_settings,screen,ship,status,sb)
-def check_bullets_alien_collisions(bullets,aliens,ai_settings,screen,ship,status,sb):
+    check_bullets_alien_collisions(bullets,aliens,ai_settings,screen,ship,status,sb,music_game)
+def check_bullets_alien_collisions(bullets,aliens,ai_settings,screen,ship,status,sb,music_game):
     collisions=pygame.sprite.groupcollide(bullets,aliens,True,True)
     if collisions:
         for aliens in collisions.values():
             status.score+=ai_settings.alien_points*len(aliens)
+            music_game.boom_music_play()
             sb.prep_score()
         check_high_score(status,sb)
     if len(aliens)==0:
