@@ -1,4 +1,5 @@
 import sys
+import os
 from time import sleep
 
 import pygame
@@ -15,6 +16,7 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets,status):
     if event.key==pygame.K_SPACE and status.game_active:
         fire_bullet(ai_settings,bullets,screen,ship)
     if event.key==pygame.K_q:
+        write_high_score(status.high_score)
         sys.exit()
 def check_keyup_events(event,ship):
     """响应松开"""
@@ -145,3 +147,20 @@ def create_fleet(ai_settings,screen,aliens,ship):
     for row_number in range(number_aliens_y):
         for alien_number in range(number_aliens_x):
             create_alien(ai_settings,screen,aliens,alien_number,row_number)
+def read_high_score():
+    """从文件夹读取最高分"""
+    file_path=os.getcwd()+"\\high_score.txt"
+    try:
+        with open(file_path,'r') as high_score_file:
+            high_score=high_score_file.read()
+            high_score=int(high_score)
+    except FileNotFoundError:
+        with open(file_path,'w') as high_score_file:
+            high_score_file.write('0')
+            high_score=0
+    return high_score
+def write_high_score(high_score):
+    """向文件写入最高分"""
+    file_path=os.getcwd()+"\\high_score.txt"
+    with open(file_path,'w') as high_score_file:
+        high_score_file.write(str(high_score))
