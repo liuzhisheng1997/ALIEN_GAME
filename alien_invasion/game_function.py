@@ -7,14 +7,14 @@ import pygame
 from bullet import Bullet
 from alien import Alien
 
-def check_keydown_events(event,ai_settings,screen,ship,bullets,status):
+def check_keydown_events(event,ai_settings,screen,ship,bullets,status,music_game):
     """响应按键"""
     if event.key==pygame.K_RIGHT:
         ship.moving_right=True
     if event.key==pygame.K_LEFT:
         ship.moving_left=True
     if event.key==pygame.K_SPACE and status.game_active:
-        fire_bullet(ai_settings,bullets,screen,ship)
+        fire_bullet(ai_settings,bullets,screen,ship,music_game)
     if event.key==pygame.K_q:
         write_high_score(status.high_score)
         sys.exit()
@@ -24,11 +24,11 @@ def check_keyup_events(event,ship):
         ship.moving_right=False
     if event.key==pygame.K_LEFT:
         ship.moving_left=False
-def check_events(ai_settings, screen, ship, bullets,status,play_button,aliens,sb):
+def check_events(ai_settings, screen, ship, bullets,status,play_button,aliens,sb,music_game):
     """响应按键和鼠标事件"""
     for event in pygame.event.get():
         if event.type==pygame.KEYDOWN:
-            check_keydown_events(event,ai_settings,screen,ship,bullets,status)
+            check_keydown_events(event,ai_settings,screen,ship,bullets,status,music_game)
         elif event.type==pygame.KEYUP:
             check_keyup_events(event,ship)
         elif event.type==pygame.MOUSEBUTTONDOWN:
@@ -79,10 +79,11 @@ def check_bullets_alien_collisions(bullets,aliens,ai_settings,screen,ship,status
         sb.prep_level()
         bullets.empty()
         create_fleet(ai_settings,screen,aliens,ship)
-def fire_bullet(ai_settings,bullets,screen,ship):
+def fire_bullet(ai_settings,bullets,screen,ship,music_game):
     if len(bullets)<ai_settings.bullets_allowed:
         new_bullet=Bullet(ai_settings,screen,ship)
         bullets.add(new_bullet)
+        music_game.shoot_music_play()
 def get_number_aliens_x(ai_settings,alien_width):
     available_space_x=ai_settings.screen_width-2*alien_width
     number_aliens_x=int(available_space_x/(2*alien_width))
